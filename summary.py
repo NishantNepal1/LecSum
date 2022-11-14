@@ -122,16 +122,15 @@ def summarize_all(input_text, percentage_of_summary):
     summary = extract_sentences(input_text, summary_length=summary_size)
     for key_phrase in keyphrases:
         summary = summary + '\n'+key_phrase
-    print(summary)
-    summary = summary.encode('utf-8')
-    summary = summary.decode('latin-1')
+    
+    
     #create_pdf(summary, 'summary.pdf')
     return summary 
 
 
 def main(input_text, percentage_of_summary):
     a = summarize_all(input_text, percentage_of_summary)
-    print(a)
+    return a
 
 if __name__ == "main":
     main()
