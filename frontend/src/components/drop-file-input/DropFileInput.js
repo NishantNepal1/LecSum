@@ -5,16 +5,18 @@ import "./drop-file-input.css"
 
 import { ImageConfig } from "../../config/ImageCongif";
 import uploadImg from "../../assets/cloud-upload-regular-240.png"
+import MessageBox from "../messagebox/messagebox";
 export default class DropFileInput extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
-      files_list: []
+      files_list: [],
+      limitFilesMsgBox: false
     }
   }
   uploadFiles = (files) => {
     if (this.state.files_list.length + files.length > 5) {
-      alert("You can only process with 5 PDF files.")
+      this.setState({limitFilesMsgBox: true})
       return
     }
     let files_list = this.state.files_list
@@ -28,13 +30,25 @@ export default class DropFileInput extends React.Component{
     })
     this.props.uploadFiles(files_list)
   }
-  deleteFromFiles = (item) => {
+  deleteFromFiles = (item, index) => {
     let files_list = this.state.files_list
-    let index = files_list.indexOf(item);
     if (index > -1) {
       files_list.splice(index, 1);
     }
     this.setState({files_list: files_list})
+  }
+  renderLimitMsgBox(){
+    return(
+      <MessageBox state={this.state.limitFilesMsgBox}>
+        <p>You can only upload up to 5 files.</p>
+        <button
+          className="msg-button"
+          onClick={()=>this.setState({limitFilesMsgBox: false})}
+        >
+          close
+        </button>
+      </MessageBox>
+    )
   }
   render(){
     const dragFunction = (event, type) => {
@@ -89,7 +103,7 @@ export default class DropFileInput extends React.Component{
                   </div>
                   <span
                     className="drop-file-preview__item__del"
-                    onClick={()=>this.deleteFromFiles(item)}
+                    onClick={()=>this.deleteFromFiles(item, index)}
                   >
                     x
                   </span>
@@ -98,6 +112,7 @@ export default class DropFileInput extends React.Component{
             }
           </div>
         }
+        {this.renderLimitMsgBox()}
       </div>
     )
   }
