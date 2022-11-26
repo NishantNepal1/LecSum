@@ -3,6 +3,8 @@ import { NLPapi } from "../API/NLP"
 import DropFileInput from "../components/drop-file-input/DropFileInput"
 import MessageBox from "../components/messagebox/messagebox"
 import "./home.css"
+
+
 export default class Home extends React.Component{
   constructor(props) {
     super(props)
@@ -13,19 +15,25 @@ export default class Home extends React.Component{
     }
     this.nlp = new NLPapi()
   }
+
+
   uploadFiles = (files) =>{
     this.setState({files_list: files})
   }
+
+
   handleSubmit = () => {
     if(this.state.files_list.length > 0){
       let list = []
       this.state.files_list.forEach((item) => {
         list.push(item.name)
       })
+
       let postData = {
         process_id: this.procId,
         ligand: list
       }
+
       this.nlp.downloadFiles(postData).then((resp) => {
         let blob = new Blob([resp.data], { type: "application/pdf", responseType: 'arraybuffer'});
         const link = document.createElement('a')
@@ -38,12 +46,22 @@ export default class Home extends React.Component{
       }).catch((err) => {
         console.error(err)
       })
+
       this.setState({filesMsgBox: true})
     }
     else{
       this.setState({noFilesMsgBox: true})
     }
   }
+
+  
+  ButtonClick = (e) => {
+    e.preventDefault();
+    this.nlp.testPostRoute(this.state.files_list);
+    // this.nlp.testGetRoute();
+  }
+
+
   render(){
     return(
       <div>
@@ -60,7 +78,7 @@ export default class Home extends React.Component{
           />
           <button
             className="button"
-            onClick={this.handleSubmit}
+            onClick={this.ButtonClick}
           >
             Summarize now
           </button>
