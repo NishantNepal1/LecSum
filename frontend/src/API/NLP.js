@@ -4,7 +4,7 @@ import BaseAPI from './base.js'
 export class NLPapi extends BaseAPI {
   constructor(props) {
     super(props)
-    this.baseUrl = `http://localhost:3001/playground`
+    this.baseUrl = `http://localhost:3001/lecsum/api`
     // this.baseUrl = `http://localhost:3000/`
   }
 
