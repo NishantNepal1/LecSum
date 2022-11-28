@@ -1,5 +1,5 @@
 # LecSum
-
+<a name="readme-top"></a>
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -23,11 +23,6 @@
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
   </p>
 </div>
 
@@ -42,7 +37,7 @@
       </ul>
     </li>
     <li>
-      <a href="#Getting started on Back-End">Getting Started on Back-End</a>
+      <a href="#getting-started-on-backend">Getting Started on Back-End</a>
 <!--       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
@@ -64,13 +59,105 @@
 
 ### Built With
 
-* [![React][React.js]][React-url]
-* [![Django][Django]][Django-url]
+[![React][React.js]][React-url]
+![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
+![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)
+![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 
+## Getting started on Backend
 
-## Getting started on Back-End
+Quick guide on how to get the backend started up and running
+Make sure to change directory to backend folder
 
+### Prerequisites
+
+This is the list of things you need to install to start up the backend
+* python3 (latest)
+  ```sh
+  Google~
+  ```
+* pip
+   ```sh
+  Google~
+  ```
+* pipenv - To create virtual environment
+   ```sh
+  pip install pipenv
+  ```
+* Django
+   ```sh
+  pipenv install django
+  ```
+
+### Installation
+
+Installation of necessary packages
+
+1. Make sure you are in backend folder
+    ```py
+    cd backend
+    ```
+3. Install the cors headers to overcome CORS policy
+   ```py
+   python -m pip install django-cors-headers
+   ```
+   * Open up setting.py file
+   ```py
+   
+   # Make sure 'corsheader' is in INSTALLED_APPS
+   INSTALLED_APPS = (
+    ...
+    'corsheaders',
+    ...
+   )
+   
+   # Make sure 'corsheaders.middleware.CorsMiddleware' is in order shown below
+   MIDDLEWARE = [
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware', #cors middleware here ------------
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+   ]
+   
+   # Make sure the following line is present at the end of the file
+   CORS_ORIGIN_ALLOW_ALL = True
+   
+   
+   ```
+3. Install Django REST Framework
+   ```py
+   pip install djangorestframework
+   
+   # Make sure 'rest_framework' is in setting.py
+   INSTALLED_APPS = (
+    ...
+    'rest_framework',
+    ...
+   )
+   
+   ```
+4. Install PyPDF2 library for extracting texts from pdf
+   ```py
+   pip install PyPDF2
+   ```
+6. Finally Start the backend
+   ```py
+   # Running server in: http://localhost:3001
+   python manage.py runserver 3001
+   ```
+7. If you get "<some> module not found" error, then try doing the below
+   ```py
+   pip install <some> # put in the modeule name in <some> GL
+   ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -92,7 +179,7 @@
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Django]: https://www.google.com/search?q=django&rlz=1C5CHFA_enKR997KR997&sxsrf=ALiCzsYLmO9umtrj7LiAbmS_2S5NC-bi7w:1669628606877&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjt4pOgy9D7AhVSCd4KHYrNDjcQ_AUoAXoECAEQAw&cshid=1669628720966047&biw=1440&bih=711&dpr=2#imgrc=VVW9xhutYJKSrM
+[Django]: ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
 [Django-url]: https://docs.djangoproject.com/en/4.1/
 [Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
 [Vue-url]: https://vuejs.org/
