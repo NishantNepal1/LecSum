@@ -11,7 +11,8 @@ export default class Home extends React.Component{
     this.state = {
       filesMsgBox: false,
       noFilesMsgBox: false,
-      files_list: []
+      files_list: [],
+      downloadLink: null
     }
     this.nlp = new NLPapi()
   }
@@ -55,10 +56,31 @@ export default class Home extends React.Component{
   }
 
   
-  ButtonClick = (e) => {
+  ButtonClick = async (e) => {
     e.preventDefault();
-    this.nlp.testPostRoute(this.state.files_list);
-    // this.nlp.testGetRoute();
+
+    if (this.state.files_list.length < 1)
+      return;
+
+    try {
+      const downloadLink = await this.nlp.testPostRoute(this.state.files_list);
+      const res = downloadLink?.success ? downloadLink.downloadLink?.filePath : null;
+      this.setState({downloadLink: res})
+      console.log("downloadLink:\t", downloadLink)
+      // this.nlp.testGetRoute();
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  downloadFile = async () => {
+    // console.log(this.state.downloadLink)
+    try {
+      const res = (await this.nlp.downloadPdf(`${this.state.downloadLink}.pdf`))
+      console.log(res)
+    } catch (e) {
+
+    }
   }
 
 
@@ -100,6 +122,16 @@ export default class Home extends React.Component{
             </button>
           </MessageBox>
         </div>
+        <div className="box">
+          <h2>{`${this.state.downloadLink ? "Your summarization is ready" : ""}`}</h2> 
+        </div>
+
+        <button
+            className="button"
+            onClick={this.downloadFile}
+          >
+            Download Summarization
+          </button>
       </div>
     )
   }

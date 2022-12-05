@@ -6,36 +6,36 @@ from rest_framework.decorators import api_view
 from wsgiref.util import FileWrapper
 import PyPDF2
 import io
+from reportlab.pdfgen import canvas
+import textwrap
+import uuid
 
 import sys
 sys.path.insert(1, './nlp')
 import summary
 
+
 # Create your views here.
 def get(request):
     return JsonResponse({"text": "Simple get request"})
 
+
+# return pdf files from files folder to front-end
 @csrf_exempt
 @api_view(['GET'])
 def getFile(request):
-    bodyData = request.data
     query_dictionary = request.query_params
+    path = query_dictionary["filePath"]
+    file_path = f"./lecsum/files/{path}"
 
-    try:
-        path = "../demoFiles/demeFile1.pdf"
-        response = FileResponse(open(path, 'rb').read())
-        response.headers = {   
-            'Content-Type': 'application/pdf',
-            'Content-Disposition': 'attachment;filename="demoFile2.pdf"',
-        }
-        response.as_attachment = True
-        return response
-    except:
-        return JsonResponse({'result': "Error sending pdf   " + query})
+    response = FileResponse(open(file_path, 'rb'))
+    response.headers = {   
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment;filename="Summarization.pdf"',
+    }
 
-    # short_report = open(path, 'rb')
-    # response = HttpResponse(FileWrapper(short_report), content_type='application/pdf')
-    # return response
+    response.as_attachment = True
+    return response
 
 
 def dynamicParams(request, id):
@@ -69,10 +69,50 @@ def recieveFiles(request):
 
     result = summary.main(completeText, 0.3)
     print(completeText + "--------------------------------------------------" + "\n\n\n")
-    print("--------------------------------------------------" + "\n\n\n")
-    print("--------------------------------------------------" + "\n\n\n")
     print(result)
-    
 
-    query_dictionary = request.query_params
-    return Response({"input": result})
+    # Giving unique id to distinguish files
+    unique_id = uuid.uuid4()
+    filePath = f"./lecsum/files/{unique_id}.pdf"
+
+    generate_pdf(result, filePath)
+
+    return Response({"filePath": unique_id})  
+
+def generate_pdf(summarizedText, filePath):
+    long_text = summarizedText.split("\n")
+    s_wrap_list = textwrap.fill(long_text.pop(0), 90)
+    final_result = "Summary:\n\n"
+    final_result += s_wrap_list
+    final_result += "\n\n\nExtracted Keywords:\n\n"
+    for i in long_text:
+        final_result += i+"\n"
+
+    # f = final_result.encode('utf-8')
+    # f = f.decode('latin-1')
+    # create_pdf(f, "yeah.pdf")
+
+    splitted_segments = final_result.splitlines()
+    splitted_segments_n = [i + '\n' for i in splitted_segments]
+    i = 750
+    numeroLinea = 0
+
+    # PATH_TO_PDF = './test2.pdf' # path to your pdf file
+    can = canvas.Canvas(filePath)
+    while numeroLinea < len(splitted_segments_n):
+        if numeroLinea - len(splitted_segments_n) < 90:
+            i=750
+            for linea in splitted_segments_n[numeroLinea:numeroLinea+60]:      
+                can.drawString(15, i, linea.strip())
+                numeroLinea += 1
+                i -= 12
+            can.showPage()
+        else:
+            i = 750
+            for linea in splitted_segments_n[numeroLinea:]:
+                can.drawString(15, i, linea.strip())
+                numeroLinea += 1
+                i -= 12
+            can.showPage()
+            
+    can.save()  

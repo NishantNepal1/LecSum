@@ -6,6 +6,8 @@ text = "LINCOLNSHIRE, IL With next-generation video game systems such as the Xbo
 percentage = 0.3
 
 result = summary.main(text, percentage)
+print(result)
+
 
 long_text = result.split("\n")
 s_wrap_list = textwrap.fill(long_text.pop(0), 90)
@@ -24,7 +26,7 @@ splitted_segments_n = [i + '\n' for i in splitted_segments]
 i = 750
 numeroLinea = 0
 
-PATH_TO_PDF = './test.pdf' # path to your pdf file
+PATH_TO_PDF = './test2.pdf' # path to your pdf file
 can = canvas.Canvas(PATH_TO_PDF)
 while numeroLinea < len(splitted_segments_n):
     if numeroLinea - len(splitted_segments_n) < 90:

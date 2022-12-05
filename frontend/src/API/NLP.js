@@ -1,5 +1,6 @@
 import axios from 'axios'
 import BaseAPI from './base.js'
+import {saveAs} from "file-saver"
 
 export class NLPapi extends BaseAPI {
   constructor(props) {
@@ -18,6 +19,23 @@ export class NLPapi extends BaseAPI {
     return axios.post(`${this.baseUrl}download-result`, object, {headers: null, responseType: 'blob' })
   }
 
+  downloadPdf = async (path) => {
+    try {
+      const res = await axios.get(`${this.baseUrl}/getFile?filePath=${path}`, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        responseType: 'arraybuffer'
+      })
+
+      const { data } = res;
+
+      const blob = new Blob([data], { type: 'application/pdf' })
+      saveAs(blob, "Summarization.pdf")
+    } catch (e) {
+      console.error(e)
+    }
+  }
   
   // Test route for REST.API from django
   testGetRoute = async () => {
@@ -58,9 +76,17 @@ x
       });
 
       // const res = await axios.post(`${this.baseUrl}/sendFiles/?id=${id}`, fd, config);
-      console.log(res?.data)
+      return {
+        "success": true,
+        "downloadLink" : res?.data
+      }
     } catch (e) {
       console.error(e)
+
+      return {
+        "success": false,
+        "downloadLink": null
+      }
     }
   }
 }
