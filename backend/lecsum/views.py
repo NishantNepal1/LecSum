@@ -9,6 +9,8 @@ import io
 from reportlab.pdfgen import canvas
 import textwrap
 import uuid
+from threading import Timer
+import os
 
 import sys
 sys.path.insert(1, './nlp')
@@ -40,6 +42,13 @@ def getFile(request):
 
 def dynamicParams(request, id):
     return JsonResponse({"id": id})
+
+def deleteFile(fileId):
+    filePath = f"./lecsum/files/{fileId}.pdf"
+    try:
+        os.remove(filePath)
+    except OSError as e:
+        print("Error: %s : %s" % (filePath, e.strerror))
 
 @csrf_exempt
 @api_view(['POST'])
@@ -74,6 +83,11 @@ def recieveFiles(request):
     # Giving unique id to distinguish files
     unique_id = uuid.uuid4()
     filePath = f"./lecsum/files/{unique_id}.pdf"
+
+    # Deletes the file after 5 minutes on multi-thread
+    time_till_deletion = 60.0 * 5
+    deletion = Timer(time_till_deletion, deleteFile, [unique_id])
+    deletion.start()
 
     generate_pdf(result, filePath)
 
