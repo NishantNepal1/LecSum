@@ -21,12 +21,22 @@ export class NLPapi extends BaseAPI {
 
   downloadPdf = async (path) => {
     try {
-      const res = await axios.get(`${this.baseUrl}/getFile?filePath=${path}`, {
+      const res = await axios.get(`${this.baseUrl}/getFile?filePath=${123}`, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
-        responseType: 'arraybuffer'
+        responseType: 'arraybuffer' || "text"
       })
+
+      // console.log(res)
+      const type = res?.headers;
+
+      if (type["content-type"] === "application/json") {
+        return {
+          "failure": true,
+          "text": "The file you wanted to download doesn't exist!"
+        }
+      }
 
       const { data } = res;
 

@@ -11,8 +11,10 @@ export default class Home extends React.Component{
     this.state = {
       filesMsgBox: false,
       noFilesMsgBox: false,
+      downloadFailMsgBox: false,
       files_list: [],
-      downloadLink: null
+      downloadLink: null,
+      file_download_fail: ""
     }
     this.nlp = new NLPapi()
   }
@@ -76,10 +78,15 @@ export default class Home extends React.Component{
   downloadFile = async () => {
     // console.log(this.state.downloadLink)
     try {
-      const res = (await this.nlp.downloadPdf(`${this.state.downloadLink}.pdf`))
-      console.log(res)
-    } catch (e) {
+      const res = await this.nlp.downloadPdf(`${this.state.downloadLink}.pdf`)
+      // console.log(res)
+      if (res?.failure) {
+        this.setState({file_download_fail: res?.text})
+        this.setState({downloadFailMsgBox: true})
+      }
 
+    } catch (e) {
+      console.error(e)
     }
   }
 
@@ -117,6 +124,14 @@ export default class Home extends React.Component{
             <button
               className="msg-button"
               onClick={()=>this.setState({filesMsgBox: false})}
+            >
+              close
+            </button>
+          </MessageBox>
+          <MessageBox state={this.state.downloadFailMsgBox}>
+            <p>{this.state.file_download_fail}</p>
+            <button 
+              onClick={()=>this.setState({downloadFailMsgBox: false})}
             >
               close
             </button>

@@ -30,14 +30,19 @@ def getFile(request):
     path = query_dictionary["filePath"]
     file_path = f"./lecsum/files/{path}"
 
-    response = FileResponse(open(file_path, 'rb'))
-    response.headers = {   
-        'Content-Type': 'application/pdf',
-        'Content-Disposition': 'attachment;filename="Summarization.pdf"',
-    }
+    try:    
+        response = FileResponse(open(file_path, 'rb'))
+        response.headers = {   
+            'Content-Type': 'application/pdf',
+            'Content-Disposition': 'attachment;filename="Summarization.pdf"',
+        }
 
-    response.as_attachment = True
-    return response
+        response.as_attachment = True
+        return response
+    except Exception:
+        print("Such file doesn't exist")
+        return Response({"res": "Such file doesn't exist!"})
+    
 
 
 def dynamicParams(request, id):
