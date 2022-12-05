@@ -68,9 +68,11 @@ def recieveFiles(request):
         completeText += "\n"
 
     result = summary.main(completeText, 0.3)
-    print(completeText + "\n\n\n")
+    print(completeText + "--------------------------------------------------" + "\n\n\n")
+    print("--------------------------------------------------" + "\n\n\n")
+    print("--------------------------------------------------" + "\n\n\n")
     print(result)
     
 
     query_dictionary = request.query_params
-    return Response({"input": query_dictionary})
+    return Response({"input": result})
