@@ -94,7 +94,7 @@ export default class Home extends React.Component{
   render(){
     return(
       <div>
-        <div className="description">
+        <div className="description slide-in-blurred-top">
           LecSum - Summarization Tool for your Lecture Notes
         </div>
         <div className="box">

@@ -5,7 +5,9 @@ export default class Navbar extends React.Component{
   render(){
     return(
       <nav className="nav">
-        <Link className="site-title" to="/">LecSum</Link>
+        <div className="nav-1">
+          <Link className="site-title" to="/">LECSUM</Link>
+        </div>
         <ul>
           <li>
             <Link to="/about">About</Link>
