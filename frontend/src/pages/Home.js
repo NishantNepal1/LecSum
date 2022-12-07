@@ -14,7 +14,8 @@ export default class Home extends React.Component{
       downloadFailMsgBox: false,
       files_list: [],
       downloadLink: null,
-      file_download_fail: ""
+      file_download_fail: "",
+      clicked: false,
     }
     this.nlp = new NLPapi()
   }
@@ -95,6 +96,29 @@ export default class Home extends React.Component{
     return(
       <div className="main-view">
         <div className="main-container">
+          <div id = "main_btn" className={`main_btn ${this.state.clicked ? "animation_btn loader": `sum-button slide-in-bck-center`}`}
+            onClick={(e) =>  {
+              e.preventDefault();
+              
+              console.log(document.getElementById("main_btn").classList.remove('slide-in-bck-center'))
+
+              console.log('click')
+              this.setState({clicked: true});
+
+              setTimeout(() => {
+                this.setState({clicked: false});
+              }, 1000);
+            }}
+          >
+            {
+              !this.state.clicked 
+              &&
+              <div className="sum-button-inner">
+                Summarize
+              </div>
+            }
+            
+          </div>
           <div className="frame frame1 slide-in-top">
             <div className="frame-1-1">
               <DropFileInput
@@ -112,7 +136,7 @@ export default class Home extends React.Component{
 
           <div className="frame frame3 slide-in-left">
             <div className="frame-2-1">
-              <h2>We need to loading animation, and download link</h2>
+              <h2>We need loading animation, and download link</h2>
             </div>
           </div>
         </div>
@@ -128,7 +152,7 @@ export default class Home extends React.Component{
             filesList = {this.state.files_list}
           />
           <button
-            className="button"
+            className="button spinning"
             onClick={this.ButtonClick}
           >
             Summarize now
