@@ -93,8 +93,30 @@ export default class Home extends React.Component{
 
   render(){
     return(
-      <div>
-        <div className="description slide-in-blurred-top">
+      <div className="main-view">
+        <div className="main-container">
+          <div className="frame frame1 slide-in-top">
+            <div className="frame-1-1">
+              <DropFileInput
+                uploadFiles={this.uploadFiles}
+                filesList = {this.state.files_list}
+              />
+            </div>
+          </div>
+
+          <div className="frame frame2 slide-in-right">
+            <div className="frame-2-1">
+              <h2>We need to list items here</h2>
+            </div>
+          </div>
+
+          <div className="frame frame3 slide-in-left">
+            <div className="frame-2-1">
+              <h2>We need to loading animation, and download link</h2>
+            </div>
+          </div>
+        </div>
+        <div className="description ">
           LecSum - Summarization Tool for your Lecture Notes
         </div>
         <div className="box">
