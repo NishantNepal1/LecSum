@@ -11,11 +11,11 @@ import textwrap
 import uuid
 from threading import Timer
 import os
+from . import openAI
 
 import sys
 sys.path.insert(1, './nlp')
 import summary
-
 
 # Create your views here.
 def get(request):
