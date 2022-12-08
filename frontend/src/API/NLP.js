@@ -5,8 +5,8 @@ import {saveAs} from "file-saver"
 export class NLPapi extends BaseAPI {
   constructor(props) {
     super(props)
-    this.baseUrl = `http://localhost:3001/lecsum/api`
-    // this.baseUrl = `http://localhost:3000/`
+    // this.baseUrl = `http://localhost:3001/lecsum/api`
+    this.baseUrl = `http://localhost:3000/`
   }
 
   // **** API for Downloading Summarized File ****

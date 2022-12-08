@@ -2,6 +2,7 @@ import React from "react"
 import { NLPapi } from "../API/NLP"
 import DropFileInput from "../components/drop-file-input/DropFileInput"
 import MessageBox from "../components/messagebox/messagebox"
+import { ImageConfig } from "../config/ImageCongif"
 import "./home.css"
 
 
@@ -22,7 +23,20 @@ export default class Home extends React.Component{
 
 
   uploadFiles = (files) =>{
-    this.setState({files_list: files})
+    if (this.state.files_list.length + files.length > 5) {
+      alert("You cannot upload more than 5 files")
+      return
+    }
+    let files_list = this.state.files_list
+    for (let i = 0; i < files.length; i++){
+      if (!files_list.includes(files[i])) {
+        files_list.push(files[i])
+      }
+    }
+    this.setState({
+      files_list: files_list
+    })
+    // this.setState({files_list: files})
   }
 
 
@@ -90,13 +104,19 @@ export default class Home extends React.Component{
       console.error(e)
     }
   }
-
+  deleteFromFiles = (item, index)=>{
+    let files_list = this.state.files_list
+    if (index > -1) {
+      files_list.splice(index, 1);
+    }
+    this.setState({files_list: files_list})
+  }
 
   render(){
     return(
       <div className="main-view">
         <div className="main-container">
-          <div id = "main_btn" className={`main_btn ${this.state.clicked ? "animation_btn loader": `sum-button slide-in-bck-center`}`}
+          {/* <div id = "main_btn" className={`main_btn ${this.state.clicked ? "animation_btn loader": `sum-button slide-in-bck-center`}`}
             onClick={(e) =>  {
               e.preventDefault();
               
@@ -118,7 +138,7 @@ export default class Home extends React.Component{
               </div>
             }
             
-          </div>
+          </div> */}
           <div className="frame frame1 slide-in-top">
             <div className="frame-1-1">
               <DropFileInput
@@ -130,17 +150,50 @@ export default class Home extends React.Component{
 
           <div className="frame frame2 slide-in-right">
             <div className="frame-2-1">
-              <h2>We need to list items here</h2>
+                <p className="drop-file-preview__title">
+                  Uploaded files
+                </p>
+                <div className="uploaded-files">
+                  <p>No.</p>
+                  <p>File name</p>
+                  <p>Size</p>
+                  <p></p>
+                </div>
+                <hr></hr>
+                {
+                  this.state.files_list.map((item, index)=>
+                    <div
+                      key={index}
+                      className = "frame-2-1__item"
+                    >
+                      <p>{index+1}</p>
+                      <p>{item.name}</p>
+                      <p>{`${(item.size / (1024*1024)).toFixed(2)} mb`}</p>
+                      <p
+                        className="frame-2-1__item__del"
+                        onClick={()=>this.deleteFromFiles(item, index)}
+                      >
+                        x
+                      </p>
+                    </div>
+                  )
+                }
             </div>
           </div>
 
           <div className="frame frame3 slide-in-left">
-            <div className="frame-2-1">
-              <h2>We need loading animation, and download link</h2>
+            <div className="frame-2-2">
+              {/* <h2>We need loading animation, and download link</h2> */}
+              <div 
+                className="sum-button-inner"
+                onClick={this.downloadFile}
+              >
+                Generate Summary
+              </div>
             </div>
           </div>
         </div>
-        <div className="description ">
+        {/* <div className="description ">
           LecSum - Summarization Tool for your Lecture Notes
         </div>
         <div className="box">
@@ -182,17 +235,17 @@ export default class Home extends React.Component{
               close
             </button>
           </MessageBox>
-        </div>
-        <div className="box">
+        </div> */}
+        {/* <div className="box">
           <h2>{`${this.state.downloadLink ? "Your summarization is ready" : ""}`}</h2> 
-        </div>
+        </div> */}
 
-        <button
+        {/* <button
             className="button"
             onClick={this.downloadFile}
           >
             Download Summarization
-          </button>
+          </button> */}
       </div>
     )
   }

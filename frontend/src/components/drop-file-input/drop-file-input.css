@@ -2,14 +2,14 @@
   position: relative;
   /* width: 400px;
   height: 200px; */
-  border: 2px dashed rgb(137, 181, 139);
-  border-radius: 20px;
+  /* border: 2px dashed rgb(137, 181, 139);
+  border-radius: 20px; */
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background-color: rgba(128, 128, 128, 0.182);
+  /* background-color: rgba(128, 128, 128, 0.182); */
 }
 
 .drop-file-input input {
@@ -35,12 +35,13 @@
 }
 
 .drop-file-input__label img {
-  width: 100px;
+  width: 250px;
 }
 
-.drop-file-preview {
+.drop-files-preview {
   position: relative;
-  /* margin-top: 30px; */
+  height: 500px;
+  overflow-y: auto;
 }
 
 .drop-file-preview p {
