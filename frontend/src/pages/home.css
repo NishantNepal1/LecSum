@@ -96,7 +96,7 @@
   align-items: center;
   color: white;
   font-weight: bold;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   transition: all 0.5s;
   cursor: pointer;
 }
@@ -117,7 +117,13 @@
   place-items: center;
   cursor: pointer;
   /* background-color: red; */
-  background: linear-gradient(-45deg, rgba(0,0,0,0.22), rgba(255,255,255,0.25));
+  /* background: linear-gradient(-45deg, rgba(0,0,0,0.22), rgba(255,255,255,0.25)); */
+  background: #313638;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  color: whitesmoke;
+  font-size: 1.2rem;
+  /* background: red; */
   transition: 0.4s all;
 }
 
@@ -182,6 +188,8 @@
   overflow-y: auto;
   position: relative;
   padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
 }
 .frame-2-2{
   background-color: white;

@@ -13,7 +13,7 @@ export default class Navbar extends React.Component{
             <Link to="/about">About</Link>
           </li> 
           <li>
-            <Link to="/others">Others</Link>
+            <a target="_blank" href="https://github.com/NishantNepal1/LecSum">GitHub</a>
           </li>
           <li>
           <Link to="/others">Contact Us</Link>
