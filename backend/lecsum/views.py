@@ -50,6 +50,7 @@ def dynamicParams(request, id):
 
 def deleteFile(fileId):
     filePath = f"./lecsum/files/{fileId}.pdf"
+    
     try:
         os.remove(filePath)
     except OSError as e:
