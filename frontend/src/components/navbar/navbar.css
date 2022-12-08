@@ -22,7 +22,7 @@ body {
 }
 
 .site-title {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: bolder;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
@@ -34,7 +34,16 @@ body {
   display: flex;
   gap: 1rem;
 }
-
+.nav li:last-of-type {
+  display: flex;
+  justify-content: center;
+  background-color: #333;
+  color: whitesmoke;
+  height: 40px;
+  width: 100px;
+  border-radius: 1rem;
+  margin-left: auto;
+}
 .nav a {
   color: inherit;
   text-decoration: none;
