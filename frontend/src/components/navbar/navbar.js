@@ -4,7 +4,7 @@ import "./navbar.css"
 export default class Navbar extends React.Component{
   render(){
     return(
-      <nav className="nav">
+      <nav className="nav slide-in-top">
         <div className="nav-1">
           <Link className="site-title" to="/">LECSUM</Link>
         </div>
