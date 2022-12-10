@@ -82,9 +82,9 @@ def recieveFiles(request):
         
         completeText += "\n"
 
-    result = summary.main(completeText, 0.3)
-    print(completeText + "--------------------------------------------------" + "\n\n\n")
-    print(result)
+    result = summary.main(completeText,0.1)
+    # print(completeText + "--------------------------------------------------" + "\n\n\n")
+    # print(result)
 
     # Giving unique id to distinguish files
     unique_id = uuid.uuid4()

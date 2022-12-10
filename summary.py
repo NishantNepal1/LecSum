@@ -116,10 +116,10 @@ def create_pdf(text, filename):
         pdf.cell(ln=0, h=5.0, align='L', w=0, txt=lines, border=0)
     pdf.output(filename, 'F')
 
-def summarize_all(input_text, percentage_of_summary):
-    summary_size = int(percentage_of_summary*len(input_text))
+def summarize_all(input_text):
+    #summary_size = int(percentage_of_summary*len(input_text))
     keyphrases = extract_key_phrases(input_text)
-    summary = extract_sentences(input_text, summary_length=summary_size)
+    summary = extract_sentences(input_text)
     for key_phrase in keyphrases:
         summary = summary + '\n'+key_phrase
     
@@ -129,7 +129,7 @@ def summarize_all(input_text, percentage_of_summary):
 
 
 def main(input_text, percentage_of_summary):
-    a = summarize_all(input_text, percentage_of_summary)
+    a = summarize_all(input_text)
     return a
 
 if __name__ == "main":

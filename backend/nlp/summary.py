@@ -98,7 +98,7 @@ def extract_sentences(text, summary_length=100, clean_sentences=True, language='
     # return  word summary
     summary = ' '.join(sentences[:len_to_ret])
     summary_words = summary.split()
-    #summary_words = summary_words[0:summary_length]
+    summary_words = summary_words[0:int(0.3 * len(summary_words))]
     dot_indices = [idx for idx, word in enumerate(summary_words) if word.find('.') != -1]
     if clean_sentences and dot_indices:
         last_dot = max(dot_indices) + 1
@@ -116,10 +116,11 @@ def create_pdf(text, filename):
         pdf.cell(ln=0, h=5.0, align='L', w=0, txt=lines, border=0)
     pdf.output(filename, 'F')
 
-def summarize_all(input_text, percentage_of_summary):
-    summary_size = int(percentage_of_summary*len(input_text))
+def summarize_all(input_text):
+    #summary_size = int(percentage_of_summary*len(input_text))
+    #print(summary_size)
     keyphrases = extract_key_phrases(input_text)
-    summary = extract_sentences(input_text, summary_length=summary_size)
+    summary = extract_sentences(input_text)
     for key_phrase in keyphrases:
         summary = summary + '\n'+key_phrase
     
@@ -129,7 +130,7 @@ def summarize_all(input_text, percentage_of_summary):
 
 
 def main(input_text, percentage_of_summary):
-    a = summarize_all(input_text, percentage_of_summary)
+    a = summarize_all(input_text)
     return a
 
 if __name__ == "main":
