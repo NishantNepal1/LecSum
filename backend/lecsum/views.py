@@ -22,6 +22,19 @@ def get(request):
     return JsonResponse({"text": "Simple get request"})
 
 
+def dynamicParams(request, id):
+    return JsonResponse({"id": id})
+
+def deleteFile(fileId):
+    filePath = f"./lecsum/files/{fileId}.pdf"
+    
+    try:
+        os.remove(filePath)
+    except OSError as e:
+        print("Error: %s : %s" % (filePath, e.strerror))
+
+
+
 # return pdf files from files folder to front-end
 @csrf_exempt
 @api_view(['GET'])
@@ -37,24 +50,16 @@ def getFile(request):
             'Content-Disposition': 'attachment;filename="Summarization.pdf"',
         }
 
+        time_till_deletion = 1.0 * 5
+        deletion = Timer(time_till_deletion, deleteFile, [path[0: len(path) - 4]])
+        deletion.start()
+
         response.as_attachment = True
         return response
     except Exception:
         print("Such file doesn't exist")
         return Response({"res": "Such file doesn't exist!"})
     
-
-
-def dynamicParams(request, id):
-    return JsonResponse({"id": id})
-
-def deleteFile(fileId):
-    filePath = f"./lecsum/files/{fileId}.pdf"
-    
-    try:
-        os.remove(filePath)
-    except OSError as e:
-        print("Error: %s : %s" % (filePath, e.strerror))
 
 @csrf_exempt
 @api_view(['POST'])
