@@ -1,5 +1,7 @@
 # LecSum
 
+
+
 <!-- Project Logo  -->
 <br />
 <div align="center">
@@ -30,6 +32,10 @@
     </li>
     <li>
       <a href="#getting-started-on-backend">Getting Started on Back-End</a>
+      <li>
+      <a href="#getting-started-on-nlp">Getting Started on NLP</a>
+      <li>
+      <a href="#getting-started-on-frontend">Getting Started on FrontEnd</a>
 <!--       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
@@ -147,6 +153,37 @@ Installation of necessary packages
 7. If you get "<some> module not found" error, then try doing the below
    ```py
    pip install <some> # put in the modeule name in <some> GL
+   ```
+## Getting started on NLP
+
+Quick guide on how to get the NLP started up and running
+1. Access the NLP folder inside backend folder
+    ```py
+    cd backend/nlp
+    ```
+2. Install nltk toolkit
+    ```py
+   pip install nltk
+   ```
+3. In the summary.py file 
+          3.1 Make Sure you run setup_environment() function atleast once
+          3.2 Make sure you run the following commands at least once
+                      ```py 
+                      nltk.download('words')
+ 
+## Getting started on FrontEnd
+Quick guide on how to get the FrontEnd started up and running
+1. Access the NLP folder inside backend folder
+    ```py
+    cd frontend
+    ```
+2. Install NPM in terminal
+    ```py
+   nlp install
+   ```
+2. Start NPM in terminal
+    ```py
+   nlp start
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
