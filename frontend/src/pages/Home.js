@@ -79,7 +79,7 @@ export default class Home extends React.Component{
     e.preventDefault();
 
     if (this.state.files_list.length < 1)
-      return;
+      return alert("Upload at least 1 pdf file");
 
     try {
       const downloadLink = await this.nlp.testPostRoute(this.state.files_list);
