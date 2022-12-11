@@ -3,12 +3,14 @@
 .box {
     background-color: var(#fff);
     padding: 30px;
-    border-radius: 20px;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    /* border-radius: 20px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
     margin-left: 3rem;
     margin-right: 3rem;
     margin-bottom: 3rem;
     margin-top: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    
 }
 .description{
   background-color: rgb(137, 181, 139);

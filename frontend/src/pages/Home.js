@@ -30,6 +30,8 @@ export default class Home extends React.Component{
     let files_list = this.state.files_list
     for (let i = 0; i < files.length; i++){
       if (!files_list.includes(files[i])) {
+        // console.log(files_list)
+        // console.log(files[i])
         files_list.push(files[i])
       }
     }
@@ -184,16 +186,35 @@ export default class Home extends React.Component{
           <div className="frame frame3 slide-in-left">
             <div className="frame-2-2">
               {/* <h2>We need loading animation, and download link</h2> */}
-              <div 
-                className="sum-button-inner"
-                onClick={this.downloadFile}
-              >
-                Generate Summary
-              </div>
+              {
+                !this.state.downloadLink ?
+                <div 
+                  className="sum-button-inner"
+                  onClick={this.ButtonClick}
+                >
+                  Generate Summary
+                </div>
+              :
+                <>
+                  <div className="box">
+                    <h2>{`${"Your summarization is ready"}`}</h2> 
+                    </div>
+
+                    <button
+                      className="sum-button-inner"
+                      onClick={this.downloadFile}
+                    >
+                    Download Summarization
+                  </button>
+                </>
+
+              }
+              
+              
             </div>
           </div>
         </div>
-        {/* <div className="description ">
+        <div className="description ">
           LecSum - Summarization Tool for your Lecture Notes
         </div>
         <div className="box">
@@ -235,17 +256,17 @@ export default class Home extends React.Component{
               close
             </button>
           </MessageBox>
-        </div> */}
-        {/* <div className="box">
+        </div>
+        <div className="box">
           <h2>{`${this.state.downloadLink ? "Your summarization is ready" : ""}`}</h2> 
-        </div> */}
+        </div>
 
-        {/* <button
+        <button
             className="button"
             onClick={this.downloadFile}
           >
             Download Summarization
-          </button> */}
+          </button>
       </div>
     )
   }
