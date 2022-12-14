@@ -12,6 +12,11 @@
     font-family: 'Courier New', Courier, monospace;
     
 }
+
+.pointer {
+  cursor: pointer;
+}
+
 .description{
   background-color: rgb(137, 181, 139);
   padding: 30px;

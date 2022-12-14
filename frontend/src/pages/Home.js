@@ -17,6 +17,9 @@ export default class Home extends React.Component{
       downloadLink: null,
       file_download_fail: "",
       clicked: false,
+      more_than_five_files: false,
+      at_least_one_file: false,
+
     }
     this.nlp = new NLPapi()
   }
@@ -24,7 +27,8 @@ export default class Home extends React.Component{
 
   uploadFiles = (files) =>{
     if (this.state.files_list.length + files.length > 5) {
-      alert("You cannot upload more than 5 files")
+      // alert("You cannot upload more than 5 files")
+      this.setState({more_than_five_files: true})
       return
     }
     let files_list = this.state.files_list
@@ -78,8 +82,11 @@ export default class Home extends React.Component{
   ButtonClick = async (e) => {
     e.preventDefault();
 
-    if (this.state.files_list.length < 1)
-      return alert("Upload at least 1 pdf file");
+    if (this.state.files_list.length < 1) {
+      this.setState({at_least_one_file: true});
+      return;
+    }
+
 
     try {
       const downloadLink = await this.nlp.testPostRoute(this.state.files_list);
@@ -102,6 +109,7 @@ export default class Home extends React.Component{
         this.setState({downloadFailMsgBox: true})
       }
 
+      this.setState({downloadLink: null})
     } catch (e) {
       console.error(e)
     }
@@ -149,6 +157,36 @@ export default class Home extends React.Component{
               />
             </div>
           </div>
+
+          <MessageBox state={this.state.downloadFailMsgBox}>
+            <p>{this.state.file_download_fail}</p>
+            <button 
+              onClick={()=>this.setState({downloadFailMsgBox: false})}
+              className = "pointer"
+            >
+              Close
+            </button>
+          </MessageBox>
+
+          <MessageBox state={this.state.more_than_five_files}>
+            <p>{`You can not upload more than 5 pdf files`}</p>
+            <button 
+              onClick={()=>this.setState({more_than_five_files: false})}
+              className = "pointer"
+            >
+              Close
+            </button>
+          </MessageBox>
+
+          <MessageBox state={this.state.at_least_one_file}>
+            <p>{`You need to upload at least 1 pdf file under 5mb`}</p>
+            <button 
+              onClick={()=>this.setState({at_least_one_file: false})}
+              className = "pointer"
+            >
+              Close
+            </button>
+          </MessageBox>
 
           <div className="frame frame2 slide-in-right">
             <div className="frame-2-1">
