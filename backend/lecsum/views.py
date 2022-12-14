@@ -26,7 +26,7 @@ def dynamicParams(request, id):
     return JsonResponse({"id": id})
 
 def deleteFile(fileId):
-    filePath = f"./lecsum/{fileId}.pdf"
+    filePath = f"./lecsum/files/{fileId}.pdf"
     
     try:
         os.remove(filePath)
@@ -41,7 +41,9 @@ def deleteFile(fileId):
 def getFile(request):
     query_dictionary = request.query_params
     path = query_dictionary["filePath"]
-    file_path = f"./lecsum/{path}"
+    file_path = f"./lecsum/files/{path}"
+
+    print(path)
 
     try:    
         response = FileResponse(open(file_path, 'rb'))
@@ -93,7 +95,7 @@ def recieveFiles(request):
 
     # Giving unique id to distinguish files
     unique_id = uuid.uuid4()
-    filePath = f"./lecsum/{unique_id}.pdf"
+    filePath = f"./lecsum/files/{unique_id}.pdf"
 
     # Deletes the file after 5 minutes on multi-thread
     time_till_deletion = 60.0 * 5

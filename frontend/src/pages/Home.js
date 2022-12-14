@@ -214,7 +214,7 @@ export default class Home extends React.Component{
             </div>
           </div>
         </div>
-        <div className="description ">
+        {/* <div className="description ">
           LecSum - Summarization Tool for your Lecture Notes
         </div>
         <div className="box">
@@ -256,8 +256,8 @@ export default class Home extends React.Component{
               close
             </button>
           </MessageBox>
-        </div>
-        <div className="box">
+        </div> */}
+        {/* <div className="box">
           <h2>{`${this.state.downloadLink ? "Your summarization is ready" : ""}`}</h2> 
         </div>
 
@@ -266,7 +266,7 @@ export default class Home extends React.Component{
             onClick={this.downloadFile}
           >
             Download Summarization
-          </button>
+          </button> */}
       </div>
     )
   }
