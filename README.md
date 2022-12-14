@@ -33,8 +33,6 @@
     <li>
       <a href="#getting-started-on-backend">Getting Started on Back-End</a>
       <li>
-      <a href="#getting-started-on-nlp">Getting Started on NLP</a>
-      <li>
       <a href="#getting-started-on-frontend">Getting Started on FrontEnd</a>
 <!--       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
@@ -68,122 +66,46 @@
 ## Getting started on Backend
 
 Quick guide on how to get the backend started up and running
-Make sure to change directory to backend folder
-
-### Prerequisites
-
-This is the list of things you need to install to start up the backend
-* python3 (latest)
-  ```sh
-  Google~
-  ```
-* pip
-   ```sh
-  Google~
-  ```
-* pipenv - To create virtual environment
-   ```sh
-  pip install pipenv
-  ```
-* Django
-   ```sh
-  pipenv install django
-  ```
-
 ### Installation
-
-Installation of necessary packages
 
 1. Make sure you are in backend folder
     ```py
     cd backend
     ```
-3. Install the cors headers to overcome CORS policy
-   ```py
-   python -m pip install django-cors-headers
-   ```
-   * Open up setting.py file
-   ```py
-   
-   # Make sure 'corsheader' is in INSTALLED_APPS
-   INSTALLED_APPS = (
-    ...
-    'corsheaders',
-    ...
-   )
-   
-   # Make sure 'corsheaders.middleware.CorsMiddleware' is in order shown below
-   MIDDLEWARE = [
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware', #cors middleware here ------------
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-   ]
-   
-   # Make sure the following line is present at the end of the file
-   CORS_ORIGIN_ALLOW_ALL = True
-   
-   
-   ```
-3. Install Django REST Framework
-   ```py
-   pip install djangorestframework
-   
-   # Make sure 'rest_framework' is in setting.py
-   INSTALLED_APPS = (
-    ...
-    'rest_framework',
-    ...
-   )
-   
-   ```
-4. Install PyPDF2 library for extracting texts from pdf
-   ```py
-   pip install PyPDF2
-   ```
-6. Finally Start the backend
+2. Create a new conda environment with required packages:
+  ```py
+  conda env create -f environment.yaml
+  # This creates a new environment named lecsum
+  # Activate this environment
+  conda activate lecsum
+  ```
+3. Download tokenizer and tagger from nltk_data directory
+  ```py
+  python -c "import nltk; nltk.download('punkt'); nltk.download('averaged_perceptron_tagger')"
+  ```
+
+4. Finally Start the backend
    ```py
    # Running server in: http://localhost:3001
    python manage.py runserver 3001
    ```
-7. If you get "<some> module not found" error, then try doing the below
+5. If you get "<some> module not found" error, then try doing the below
    ```py
    pip install <some> # put in the modeule name in <some> GL
    ```
-## Getting started on NLP
-
-Quick guide on how to get the NLP started up and running
-1. Access the NLP folder inside backend folder
-    ```py
-    cd backend/nlp
-    ```
-2. Install nltk toolkit
-    ```py
-   pip install nltk
-   ```
-3. In the summary.py file 
-          3.1 Make Sure you run setup_environment() function atleast once
-          3.2 Make sure you run the following commands at least once
-                      ```py 
-                      nltk.download('words')
- 
 ## Getting started on FrontEnd
 Quick guide on how to get the FrontEnd started up and running
-1. Access the NLP folder inside backend folder
+1. Make sure you are in frontend folder
     ```py
     cd frontend
     ```
 2. Install NPM in terminal
     ```py
-   nlp install
+   npm install
    ```
 2. Start NPM in terminal
     ```py
-   nlp start
+   npm start
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
