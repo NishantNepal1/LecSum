@@ -68,9 +68,10 @@
 Quick guide on how to get the backend started up and running
 ### Installation
 
-1. Make sure you are in backend folder
+1. Make sure you are in backend folder and start virtual environment
     ```py
-    cd backend
+    cd backend  #change directory
+    pipenv shell  #starting virtual environment
     ```
 2. Create a new conda environment with required packages:
   ```py
